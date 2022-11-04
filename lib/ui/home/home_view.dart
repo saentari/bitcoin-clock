@@ -14,35 +14,32 @@ class HomeView extends StatelessWidget {
       viewModelBuilder: () => HomeViewModel(),
       onModelReady: (viewModel) => viewModel.initialise(context),
       builder: (context, model, child) => SafeArea(
-        child: Scaffold(
-          backgroundColor: const Color(0xFFECEFF4),
-          body: Center(
-            child: _flipFraseBoard(),
+        child: GestureDetector(
+          onTap: () => model.toggleTheme(context),
+          child: Scaffold(
+            body: Center(
+              child: FlipFraseBoard(
+                flipType: FlipType.middleFlip,
+                axis: Axis.vertical,
+                startFrase: model.data[model.previousDataItem],
+                endFrase: model.data[model.currentDataItem],
+                fontSize: 100.0,
+                hingeWidth: 1.6,
+                flipLetterHeight: 140.0,
+                maxFlipDelay: 300,
+                minFlipDelay: 200,
+                letterColors: [Theme.of(context).colorScheme.onSecondary],
+                hingeColor: Colors.transparent,
+                startColors: [Theme.of(context).colorScheme.secondary],
+                endColors: [Theme.of(context).colorScheme.secondary],
+                letterSpacing: 2.0,
+                // onDone: () => model.refresh(delay: 60),
+                startNotifier: model.startNotifier,
+              ),
+            ),
           ),
         ),
       ),
     );
   }
-}
-
-// Frase widget.
-Widget _flipFraseBoard() {
-  final startNotifier = ValueNotifier(0);
-  return FlipFraseBoard(
-    flipType: FlipType.middleFlip,
-    axis: Axis.vertical,
-    startFrase: '  11:49',
-    endFrase: '\$ 20758',
-    fontSize: 48.0,
-    flipLetterHeight: 60.0,
-    maxFlipDelay: 300,
-    hingeWidth: 1.6,
-    showBorder: false,
-    letterColors: const [Color(0xFF404B59)],
-    hingeColor: Colors.transparent,
-    startColors: const [Color(0xFFFFFFFF)],
-    endColors: const [Color(0xFFFFFFFF)],
-    letterSpacing: 2.0,
-    startNotifier: startNotifier,
-  );
 }
