@@ -23,12 +23,25 @@ dependencies:
   intl: ^0.17.0
   http: ^0.13.5
 
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # The "flutter_lints" package encourages good coding practices.
   flutter_lints: ^2.0.0
+
+  # Flutter Launcher Icons is a command-line tool which simplifies the task
+  # of updating your Flutter app's launcher icon.
+  flutter_launcher_icons: ^0.10.0
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
+  adaptive_icon_foreground: "assets/images/logo_foreground.png"
+  adaptive_icon_background: "#000000"
 
 # The following section is specific to Flutter packages.
 flutter:
