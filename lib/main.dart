@@ -1,5 +1,5 @@
-import 'package:dagaz/ui/home/home_view.dart';
-import 'package:dagaz/ui/theme_setup.dart';
+import 'package:bitcoin_clock/ui/home/home_view.dart';
+import 'package:bitcoin_clock/ui/theme_setup.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 

@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.saentari.dagaz">
+    package="com.saentari.bitcoinclock">
    <application
-        android:label="dagaz"
+        android:label="Bitcoin Clock"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:exported="true"

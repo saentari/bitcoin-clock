@@ -1,7 +1,8 @@
-import 'package:flip_board/flip_board.dart';
-import 'package:flip_board/flip_widget.dart';
+import 'package:bitcoin_clock/widgets/flip_card_content_widget.dart';
+import 'package:bitcoin_clock/widgets/flip_card_mask_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:widget_mask/widget_mask.dart';
 
 import 'home_view_model.dart';
 
@@ -15,78 +16,87 @@ class HomeView extends StatelessWidget {
       onModelReady: (viewModel) => viewModel.initialise(context),
       builder: (context, model, child) => SafeArea(
         child: GestureDetector(
-          onTap: () => model.toggleTheme(context),
+          onTap: () => model.showNext(),
           child: Scaffold(
             body: OrientationBuilder(builder: (context, orientation) {
-              model.toggleOrientation(orientation);
+              model.toggleOrientation(context, orientation);
               return Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                        onTap: () => model.showNext(),
-                        child: _flipWidget(AxisDirection.down, model)),
-                    GestureDetector(
-                      onTap: () => model.refreshData(),
-                      child: FlipFraseBoard(
-                        flipType: FlipType.middleFlip,
-                        axis: Axis.vertical,
-                        startFrase: model.data[model.previousDataItem],
-                        endFrase: model.data[model.currentDataItem],
-                        fontSize: model.fontSize,
-                        hingeWidth: 1.6,
-                        maxFlipDelay: 300,
-                        minFlipDelay: 200,
-                        letterColors: [
-                          Theme.of(context).colorScheme.onSecondary
+                child: GestureDetector(
+                  onTap: () => model.randomBackgroundImage(),
+                  child: Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: WidgetMask(
+                              childSaveLayer: true,
+                              blendMode: BlendMode.srcATop,
+                              mask: Image.network(
+                                model.randomBackground,
+                                fit: BoxFit.cover,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                      color: Colors.black,
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                    ),
+                                    width: model.flipCardWidth,
+                                    height: model.flipCardHeight,
+                                  ),
+                                  FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
+                                  FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
+                                  FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
+                                  FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
+                                  FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
+                                  FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
-                        hingeColor: Colors.transparent,
-                        startColors: [Theme.of(context).colorScheme.secondary],
-                        endColors: [Theme.of(context).colorScheme.secondary],
-                        // onDone: () => model.refresh(delay: 60),
-                        startNotifier: model.startNotifier,
                       ),
-                    ),
-                  ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FlipCardContentWidget(
+                                  model.flipCardWidth, model.fontSize / 2.8, model.metadataTop[model.currentDataItem]),
+                              const SizedBox(height: 8),
+                              FlipCardContentWidget(model.flipCardWidth, model.fontSize / 2.8,
+                                  model.metadataBottom[model.currentDataItem]),
+                            ],
+                          ),
+                          FlipCardContentWidget(
+                              model.flipCardWidth, model.fontSize, model.data[model.currentDataItem][0]),
+                          FlipCardContentWidget(
+                              model.flipCardWidth, model.fontSize, model.data[model.currentDataItem][1]),
+                          FlipCardContentWidget(
+                              model.flipCardWidth, model.fontSize, model.data[model.currentDataItem][2]),
+                          FlipCardContentWidget(
+                              model.flipCardWidth, model.fontSize, model.data[model.currentDataItem][3]),
+                          FlipCardContentWidget(
+                              model.flipCardWidth, model.fontSize, model.data[model.currentDataItem][4]),
+                          FlipCardContentWidget(
+                              model.flipCardWidth, model.fontSize, model.data[model.currentDataItem][5]),
+                        ],
+                      ),
+                      const Divider(
+                        thickness: 4,
+                        color: Colors.black,
+                      )
+                    ],
+                  ),
                 ),
               );
             }),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _flipWidget(AxisDirection direction, HomeViewModel model) {
-    return FlipWidget(
-      flipType: FlipType.middleFlip,
-      itemStream: model.flipController.stream,
-      itemBuilder: _itemBuilder,
-      initialValue: model.metadata[model.currentDataItem],
-      flipDirection: direction,
-      flipCurve: FlipWidget.bounceFastFlip,
-      flipDuration: const Duration(seconds: 1),
-      perspectiveEffect: 0.008,
-      hingeWidth: 2.0,
-      hingeLength: 2.0,
-      // hingeColor: Colors.transparent,
-    );
-  }
-
-  Widget _itemBuilder(BuildContext context, dynamic value) {
-    return Container(
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-      ),
-      height: 55.0,
-      width: 50.0,
-      child: Text(
-        (value ?? 0).toString(),
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onSecondary,
-          fontSize: 24.0,
         ),
       ),
     );
