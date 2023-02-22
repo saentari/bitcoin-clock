@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:fullscreen/fullscreen.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
@@ -16,6 +17,10 @@ class HomeViewModel extends ChangeNotifier {
   var flipCardWidth = 0.0;
   var flipCardHeight = 0.0;
   var timerInterval = 30;
+
+  var isFullScreen = false;
+  var showTime = true;
+  var showBitcoinPrice = true;
 
   // Data items must always have 7 characters.
   late List<String> data;
@@ -175,12 +180,34 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   int randomImageNumber() {
-    return Random().nextInt(3) + 1;
+    return Random().nextInt(12) + 1;
   }
 
   randomBackgroundImage() {
     int randomNumber = randomImageNumber();
     randomBackground = 'https://raw.githubusercontent.com/saentari/bitcoin-clock/main/assets/images/$randomNumber.jpeg';
+    notifyListeners();
+  }
+
+  void enterFullScreen() {
+    print('is: $isFullScreen');
+
+    FullScreen.enterFullScreen(FullScreenMode.LEANBACK);
+    isFullScreen = true;
+    print('entering');
+
+    print('is now: $isFullScreen');
+    notifyListeners();
+  }
+
+  void exitFullScreen() {
+    print('is: $isFullScreen');
+
+    FullScreen.exitFullScreen();
+    isFullScreen = false;
+    print('entering');
+
+    print('is now: $isFullScreen');
     notifyListeners();
   }
 }

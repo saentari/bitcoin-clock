@@ -12,6 +12,7 @@ dependencies:
 
   # UI
   cupertino_icons: ^1.0.2
+  fullscreen: ^1.0.3
   widget_mask: ^1.0.0+0
 
   # State management
