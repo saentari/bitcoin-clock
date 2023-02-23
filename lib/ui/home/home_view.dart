@@ -24,6 +24,7 @@ class HomeView extends StatelessWidget {
               actions: [
                 Row(
                   children: [
+                    IconButton(onPressed: () => model.showNext(), icon: const Icon(Icons.cached)),
                     IconButton(onPressed: () => model.randomBackgroundImage(), icon: const Icon(Icons.image)),
                     IconButton(onPressed: () => model.enterFullScreen(), icon: const Icon(Icons.fullscreen)),
                   ],

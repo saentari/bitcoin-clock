@@ -180,7 +180,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   int randomImageNumber() {
-    return Random().nextInt(12) + 1;
+    return Random().nextInt(14) + 1;
   }
 
   randomBackgroundImage() {
@@ -190,24 +190,14 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void enterFullScreen() {
-    print('is: $isFullScreen');
-
     FullScreen.enterFullScreen(FullScreenMode.LEANBACK);
     isFullScreen = true;
-    print('entering');
-
-    print('is now: $isFullScreen');
     notifyListeners();
   }
 
   void exitFullScreen() {
-    print('is: $isFullScreen');
-
     FullScreen.exitFullScreen();
     isFullScreen = false;
-    print('entering');
-
-    print('is now: $isFullScreen');
     notifyListeners();
   }
 }
