@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:bitcoin_clock/services/block_explorer_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fullscreen/fullscreen.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
-import '../../services/exchange_manager.dart';
+import '../../services/price_exchange_service.dart';
 import '../theme_setup.dart';
 
 class HomeViewModel extends ChangeNotifier {
@@ -17,6 +18,8 @@ class HomeViewModel extends ChangeNotifier {
   var flipCardWidth = 0.0;
   var flipCardHeight = 0.0;
   var timerInterval = 30;
+  var percentChangeInterval = '24h';
+  var blockHeight = 0;
 
   var isFullScreen = false;
   var showTime = true;
@@ -34,7 +37,7 @@ class HomeViewModel extends ChangeNotifier {
   Future<void> initialise(BuildContext context) async {
     // Launch text.
     data = ['      '];
-    metadataTop = ['TIME', 'BTC'];
+    metadataTop = ['TIME', 'BTC', '%', 'BLCK'];
     metadataBottom = [' '];
 
     currentDataItem = 0;
@@ -152,8 +155,14 @@ class HomeViewModel extends ChangeNotifier {
     // Bitcoin price (USD).
     final price = await priceToString();
 
+    // Bitcoin price change (%).
+    final percentChange = await percentChangeToString();
+
+    // Block height.
+    final block = await blockHeightToString();
+
     // Return updated [data].
-    return [time, price];
+    return [time, price, percentChange, block];
   }
 
   Future<List<String>> composeMetadataBottom() async {
@@ -165,7 +174,7 @@ class HomeViewModel extends ChangeNotifier {
     const currency = 'USD';
 
     // Return updated [data].
-    return [timeZone, currency];
+    return [timeZone, currency, percentChangeInterval, 'HGHT'];
   }
 
   String timeToString() {
@@ -173,10 +182,22 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<String> priceToString() async {
-    final exchange = ExchangeManager();
+    final exchange = PriceExchangeService();
     final price = await exchange.price('USD');
     final roundedPrice = price.ceil().toString();
     return roundedPrice.padLeft(6, ' ');
+  }
+
+  Future<String> percentChangeToString() async {
+    final exchange = PriceExchangeService();
+    final percentChange = await exchange.percentChange('USD', 'percent_change_$percentChangeInterval');
+    return percentChange.toStringAsFixed(2).padLeft(6, ' ');
+  }
+
+  Future<String> blockHeightToString() async {
+    final explorer = BlockExplorerService();
+    final height = await explorer.getBlockHeight();
+    return height.toString().padLeft(6, ' ');
   }
 
   int randomImageNumber() {

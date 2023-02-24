@@ -19,7 +19,16 @@ class FlipCardContentWidget extends StatelessWidget {
       width: width,
       child: Text(
         content,
-        style: TextStyle(fontSize: fontSize),
+        style: TextStyle(
+          fontSize: fontSize,
+          shadows: const <Shadow>[
+            Shadow(
+              offset: Offset(3.0, 3.0),
+              blurRadius: 0.0,
+              color: Colors.black,
+            ),
+          ],
+        ),
       ),
     );
   }
