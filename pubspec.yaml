@@ -12,12 +12,11 @@ dependencies:
 
   # UI
   cupertino_icons: ^1.0.2
-  fullscreen: ^1.0.3
   widget_mask: ^1.0.0+0
 
   # State management
-  stacked: ^3.0.0
-  stacked_themes: ^0.3.9
+  stacked: ^3.4.1
+  stacked_themes: ^0.3.12
 
   # Services
   intl: ^0.17.0

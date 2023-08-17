@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:bitcoin_clock/services/block_explorer_service.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fullscreen/fullscreen.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
@@ -211,13 +211,13 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void enterFullScreen() {
-    FullScreen.enterFullScreen(FullScreenMode.LEANBACK);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     isFullScreen = true;
     notifyListeners();
   }
 
   void exitFullScreen() {
-    FullScreen.exitFullScreen();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
     isFullScreen = false;
     notifyListeners();
   }
