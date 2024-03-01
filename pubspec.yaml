@@ -12,7 +12,6 @@ dependencies:
 
   # UI
   cupertino_icons: ^1.0.2
-  widget_mask: ^1.0.0+0
 
   # State management
   stacked: ^3.4.1
@@ -41,16 +40,3 @@ flutter:
   # App images
   assets:
     - assets/images/logo.png
-  
-  # Custom fonts
-  fonts:
-    - family: Economica
-      fonts:
-        - asset: assets/fonts/Economica-Regular.ttf
-        - asset: assets/fonts/Economica-Italic.ttf
-          style: italic
-        - asset: assets/fonts/Economica-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Economica-BoldItalic.ttf
-          weight: 700
-          style: italic

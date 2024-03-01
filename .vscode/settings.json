@@ -14,9 +14,9 @@
         "editor.suggest.snippetsPreventQuickSuggestions": false,
         "editor.suggestSelection": "first",
         "editor.tabCompletion": "onlySnippets",
-        "editor.wordBasedSuggestions": false,
+        "editor.wordBasedSuggestions": "off",
         "editor.codeActionsOnSave": {
-            "source.organizeImports": true
+            "source.organizeImports": "explicit"
         }
     },
 

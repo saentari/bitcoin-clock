@@ -4,7 +4,6 @@ List<ThemeData> getThemes() {
   return [
     // Dark theme
     ThemeData(
-      fontFamily: 'Economica',
       colorScheme: const ColorScheme.highContrastDark(
         secondary: Color(0xFF1F1F1F),
         onSecondary: Color(0xFFFFFFFF),
@@ -13,7 +12,6 @@ List<ThemeData> getThemes() {
     ),
     // Light theme
     ThemeData(
-      fontFamily: 'Economica',
       colorScheme: const ColorScheme.highContrastLight(
         secondary: Color(0xFFFFFFFF),
         onSecondary: Color(0xFF2F3132),

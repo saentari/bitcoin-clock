@@ -2,7 +2,6 @@ import 'package:bitcoin_clock/widgets/flip_card_content_widget.dart';
 import 'package:bitcoin_clock/widgets/flip_card_mask_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:widget_mask/widget_mask.dart';
 
 import 'home_view_model.dart';
 
@@ -13,7 +12,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
-      onModelReady: (viewModel) => viewModel.initialise(context),
+      onViewModelReady: (viewModel) => viewModel.initialise(context),
       builder: (context, model, child) => SafeArea(
         child: GestureDetector(
           onTap: () => model.exitFullScreen(),
@@ -25,7 +24,6 @@ class HomeView extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(onPressed: () => model.showNext(), icon: const Icon(Icons.cached)),
-                    IconButton(onPressed: () => model.randomBackgroundImage(), icon: const Icon(Icons.image)),
                     IconButton(onPressed: () => model.enterFullScreen(), icon: const Icon(Icons.fullscreen)),
                   ],
                 ),
@@ -41,32 +39,24 @@ class HomeView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                          child: WidgetMask(
-                            childSaveLayer: true,
-                            blendMode: BlendMode.srcATop,
-                            mask: Image.network(
-                              model.randomBackground,
-                              fit: BoxFit.cover,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  decoration: const BoxDecoration(
-                                    color: Colors.black,
-                                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                                  ),
-                                  width: model.flipCardWidth,
-                                  height: model.flipCardHeight,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.all(Radius.circular(8)),
                                 ),
-                                FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
-                                FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
-                                FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
-                                FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
-                                FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
-                                FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
-                              ],
-                            ),
+                                width: model.flipCardWidth,
+                                height: model.flipCardHeight,
+                              ),
+                              FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
+                              FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
+                              FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
+                              FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
+                              FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
+                              FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
+                            ],
                           ),
                         ),
                       ],
@@ -78,10 +68,10 @@ class HomeView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             FlipCardContentWidget(
-                                model.flipCardWidth, model.fontSize / 2.8, model.metadataTop[model.currentDataItem]),
+                                model.flipCardWidth, model.fontSize / 4.0, model.metadataTop[model.currentDataItem]),
                             const SizedBox(height: 8),
                             FlipCardContentWidget(
-                                model.flipCardWidth, model.fontSize / 2.8, model.metadataBottom[model.currentDataItem]),
+                                model.flipCardWidth, model.fontSize / 4.0, model.metadataBottom[model.currentDataItem]),
                           ],
                         ),
                         FlipCardContentWidget(

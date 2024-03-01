@@ -1,12 +1,11 @@
 import 'dart:async';
-import 'dart:math';
 
-import 'package:bitcoin_clock/services/block_explorer_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
+import '../../services/block_explorer_service.dart';
 import '../../services/price_exchange_service.dart';
 import '../theme_setup.dart';
 
@@ -32,7 +31,6 @@ class HomeViewModel extends ChangeNotifier {
   late int previousDataItem;
   late int currentDataItem;
   late Timer timer;
-  late String randomBackground;
 
   Future<void> initialise(BuildContext context) async {
     // Launch text.
@@ -42,10 +40,6 @@ class HomeViewModel extends ChangeNotifier {
 
     currentDataItem = 0;
     previousDataItem = data.length - 1;
-
-    // Set random background.
-    int randomNumber = randomImageNumber();
-    randomBackground = 'https://raw.githubusercontent.com/saentari/bitcoin-clock/main/assets/images/$randomNumber.jpeg';
 
     // Set the screen width.
     flipCardWidth = MediaQuery.of(context).size.width / 8;
@@ -198,16 +192,6 @@ class HomeViewModel extends ChangeNotifier {
     final explorer = BlockExplorerService();
     final height = await explorer.getBlockHeight();
     return height.toString().padLeft(6, ' ');
-  }
-
-  int randomImageNumber() {
-    return Random().nextInt(14) + 1;
-  }
-
-  randomBackgroundImage() {
-    int randomNumber = randomImageNumber();
-    randomBackground = 'https://raw.githubusercontent.com/saentari/bitcoin-clock/main/assets/images/$randomNumber.jpeg';
-    notifyListeners();
   }
 
   void enterFullScreen() {
