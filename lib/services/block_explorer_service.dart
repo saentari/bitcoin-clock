@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../constants/url.dart';
 import '../helpers/network_helper.dart';
 
 class BlockExplorerService {
@@ -7,9 +8,8 @@ class BlockExplorerService {
 
   // Retrieve block height.
   Future<int> getBlockHeight() async {
-    var uri = 'https://mempool.space/api/v1/blocks/';
-    var responseBody = await _networkHelper.fetchData(uri);
-    var blockHeight = jsonDecode(responseBody)[0]['height'];
+    final responseBody = await _networkHelper.fetchData(mempoolBlockHeigh);
+    final blockHeight = jsonDecode(responseBody)[0]['height'];
     return blockHeight;
   }
 }

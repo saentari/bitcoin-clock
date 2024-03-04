@@ -1,23 +1,15 @@
 import 'dart:convert';
 
+import '../constants/url.dart';
 import '../helpers/network_helper.dart';
 
-class PriceExchangeService {
+class PriceService {
   final NetworkHelper _networkHelper = NetworkHelper();
 
   // Retrieve bitcoin price.
-  Future<double> price(String fiatCurrency) async {
-    var uri = 'https://api.coinpaprika.com/v1/tickers/btc-bitcoin?quotes=$fiatCurrency';
-    var responseBody = await _networkHelper.fetchData(uri);
-    var price = jsonDecode(responseBody)['quotes'][fiatCurrency]['price'];
+  Future<int> getPrice(String fiatCurrency) async {
+    final responseBody = await _networkHelper.fetchData(mempoolPrices);
+    final price = jsonDecode(responseBody)[fiatCurrency];
     return price;
-  }
-
-  // Retrieve bitcoin price.
-  Future<double> percentChange(String fiatCurrency, String time) async {
-    var uri = 'https://api.coinpaprika.com/v1/tickers/btc-bitcoin?quotes=$fiatCurrency';
-    var responseBody = await _networkHelper.fetchData(uri);
-    var percentChange = jsonDecode(responseBody)['quotes'][fiatCurrency][time];
-    return percentChange;
   }
 }

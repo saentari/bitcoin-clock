@@ -149,14 +149,11 @@ class HomeViewModel extends ChangeNotifier {
     // Bitcoin price (USD).
     final price = await priceToString();
 
-    // Bitcoin price change (%).
-    final percentChange = await percentChangeToString();
-
     // Block height.
     final block = await blockHeightToString();
 
     // Return updated [data].
-    return [time, price, percentChange, block];
+    return [time, price, block];
   }
 
   Future<List<String>> composeMetadataBottom() async {
@@ -176,16 +173,10 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<String> priceToString() async {
-    final exchange = PriceExchangeService();
-    final price = await exchange.price('USD');
+    final exchange = PriceService();
+    final price = await exchange.getPrice('USD');
     final roundedPrice = price.ceil().toString();
     return roundedPrice.padLeft(6, ' ');
-  }
-
-  Future<String> percentChangeToString() async {
-    final exchange = PriceExchangeService();
-    final percentChange = await exchange.percentChange('USD', 'percent_change_$percentChangeInterval');
-    return percentChange.toStringAsFixed(2).padLeft(6, ' ');
   }
 
   Future<String> blockHeightToString() async {
