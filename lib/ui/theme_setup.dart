@@ -1,22 +1,35 @@
 import 'package:flutter/material.dart';
 
+Color light = const Color(0xFFECEFF4);
+Color dark = const Color(0xFF000000);
+
 List<ThemeData> getThemes() {
   return [
     // Dark theme
     ThemeData(
-      colorScheme: const ColorScheme.highContrastDark(
-        secondary: Color(0xFF1F1F1F),
-        onSecondary: Color(0xFFFFFFFF),
+      colorScheme: const ColorScheme.highContrastDark(),
+      scaffoldBackgroundColor: dark,
+      dividerTheme: DividerThemeData(
+        color: dark,
+        thickness: 4,
       ),
-      scaffoldBackgroundColor: const Color(0xFF000000),
+      appBarTheme: AppBarTheme(
+        backgroundColor: dark,
+        iconTheme: IconThemeData(color: light),
+      ),
     ),
     // Light theme
     ThemeData(
-      colorScheme: const ColorScheme.highContrastLight(
-        secondary: Color(0xFFFFFFFF),
-        onSecondary: Color(0xFF2F3132),
+      colorScheme: const ColorScheme.highContrastLight(),
+      scaffoldBackgroundColor: light,
+      dividerTheme: DividerThemeData(
+        color: light,
+        thickness: 4,
       ),
-      scaffoldBackgroundColor: const Color(0xFFECEFF4),
+      appBarTheme: AppBarTheme(
+        backgroundColor: light,
+        iconTheme: IconThemeData(color: dark),
+      ),
     ),
   ];
 }

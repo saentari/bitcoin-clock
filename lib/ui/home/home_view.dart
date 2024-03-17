@@ -1,5 +1,3 @@
-import 'package:bitcoin_clock/widgets/flip_card_content_widget.dart';
-import 'package:bitcoin_clock/widgets/flip_card_mask_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -19,10 +17,10 @@ class HomeView extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
               toolbarHeight: model.isFullScreen == true ? 0 : AppBar().preferredSize.height,
-              backgroundColor: Colors.black,
               actions: [
                 Row(
                   children: [
+                    IconButton(onPressed: () => model.toggleTheme(context), icon: const Icon(Icons.dark_mode)),
                     IconButton(onPressed: () => model.showNext(), icon: const Icon(Icons.cached)),
                     IconButton(onPressed: () => model.enterFullScreen(), icon: const Icon(Icons.fullscreen)),
                   ],
@@ -36,62 +34,73 @@ class HomeView extends StatelessWidget {
                   alignment: AlignmentDirectional.center,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                decoration: const BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                                ),
-                                width: model.flipCardWidth,
-                                height: model.flipCardHeight,
-                              ),
-                              FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
-                              FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
-                              FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
-                              FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
-                              FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
-                              FlipCardMaskWidget(model.flipCardWidth, model.flipCardHeight),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            FlipCardContentWidget(
-                                model.flipCardWidth, model.fontSize / 4.0, model.metadataTop[model.currentDataItem]),
+                            SizedBox(
+                              width: model.flipCardWidth,
+                              child: Text(
+                                model.metadataTop[model.currentDataItem],
+                                style: TextStyle(fontSize: model.fontSize / 4.4),
+                              ),
+                            ),
                             const SizedBox(height: 8),
-                            FlipCardContentWidget(
-                                model.flipCardWidth, model.fontSize / 4.0, model.metadataBottom[model.currentDataItem]),
+                            SizedBox(
+                              width: model.flipCardWidth,
+                              child: Text(
+                                model.metadataBottom[model.currentDataItem],
+                                style: TextStyle(fontSize: model.fontSize / 4.4),
+                              ),
+                            ),
                           ],
                         ),
-                        FlipCardContentWidget(
-                            model.flipCardWidth, model.fontSize, model.data[model.currentDataItem][0]),
-                        FlipCardContentWidget(
-                            model.flipCardWidth, model.fontSize, model.data[model.currentDataItem][1]),
-                        FlipCardContentWidget(
-                            model.flipCardWidth, model.fontSize, model.data[model.currentDataItem][2]),
-                        FlipCardContentWidget(
-                            model.flipCardWidth, model.fontSize, model.data[model.currentDataItem][3]),
-                        FlipCardContentWidget(
-                            model.flipCardWidth, model.fontSize, model.data[model.currentDataItem][4]),
-                        FlipCardContentWidget(
-                            model.flipCardWidth, model.fontSize, model.data[model.currentDataItem][5]),
+                        SizedBox(
+                          width: model.flipCardWidth,
+                          child: Text(
+                            model.data[model.currentDataItem][0],
+                            style: TextStyle(fontSize: model.fontSize),
+                          ),
+                        ),
+                        SizedBox(
+                          width: model.flipCardWidth,
+                          child: Text(
+                            model.data[model.currentDataItem][1],
+                            style: TextStyle(fontSize: model.fontSize),
+                          ),
+                        ),
+                        SizedBox(
+                          width: model.flipCardWidth,
+                          child: Text(
+                            model.data[model.currentDataItem][2],
+                            style: TextStyle(fontSize: model.fontSize),
+                          ),
+                        ),
+                        SizedBox(
+                          width: model.flipCardWidth,
+                          child: Text(
+                            model.data[model.currentDataItem][3],
+                            style: TextStyle(fontSize: model.fontSize),
+                          ),
+                        ),
+                        SizedBox(
+                          width: model.flipCardWidth,
+                          child: Text(
+                            model.data[model.currentDataItem][4],
+                            style: TextStyle(fontSize: model.fontSize),
+                          ),
+                        ),
+                        SizedBox(
+                          width: model.flipCardWidth,
+                          child: Text(
+                            model.data[model.currentDataItem][5],
+                            style: TextStyle(fontSize: model.fontSize),
+                          ),
+                        ),
                       ],
                     ),
-                    const Divider(
-                      thickness: 4,
-                      color: Colors.black,
-                    )
+                    const Divider()
                   ],
                 ),
               );

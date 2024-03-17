@@ -35,7 +35,7 @@ class HomeViewModel extends ChangeNotifier {
   Future<void> initialise(BuildContext context) async {
     // Launch text.
     data = ['      '];
-    metadataTop = ['TIME', 'BTC', '%', 'BLCK'];
+    metadataTop = ['TIME', 'BTC', 'BLCK'];
     metadataBottom = [' '];
 
     currentDataItem = 0;
@@ -165,7 +165,7 @@ class HomeViewModel extends ChangeNotifier {
     const currency = 'USD';
 
     // Return updated [data].
-    return [timeZone, currency, percentChangeInterval, 'HGHT'];
+    return [timeZone, currency, 'HGHT'];
   }
 
   String timeToString() {
